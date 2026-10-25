@@ -42,6 +42,10 @@ Support: mandasartur@gmail.com
 
 That's it: synthesis runs on a background thread and the result arrives on the game thread.
 
+A ready-made copy of this graph is `Demo/BP_SynthVoxExample`: drag it into a level and press Play.
+
+![Speak Text wired to Spawn Sound 2D](images/blueprint-speak-text.png)
+
 > Check **Is Offline TTS Ready** before the first call if you speak during the very first frame; the models load
 > asynchronously at startup (typically under a second).
 
@@ -122,9 +126,14 @@ SynthVox routes speech through an **Audio Bus** instead:
 3. When speech is ready: **Spawn Sound 2D** (or play) your MetaSound, then **Stream Speech To Audio Bus**
    (`AB_Voice`, Sound Wave).
 
+The Audio Bus path takes the finished line: use **Speak Text** without **Stream Sentences**, then push the result.
+Streaming and the Audio Bus path don't combine in this version.
+
 Resampling from the voice's rate (24 or 22.05 kHz) to the mixer rate is automatic. **Cancel Speech Audio Bus** cuts
 speech still buffered on a bus. A complete example: `Demo/BP_TTSMetaSoundDemo` + `Demo/MSS_TTSPostProcess` (radio
 effect), also reachable from the demo UI via **Process via MetaSound**.
+
+![MetaSound radio effect: Audio Bus Reader, Bitcrusher, Flanger](images/metasound-radio-graph.png)
 
 ---
 
@@ -188,6 +197,9 @@ Also available: `SpeakTextStreaming` (with per-sentence and completion callbacks
   can be deleted from your project's copy.
 - Packaged builds need nothing extra: models and voices are regular assets, cooked with your game. No network access
   happens at any point.
+- Voices you pick on a node or property are cooked automatically. If you load voices by path at runtime instead
+  (e.g. `LoadObject` on `/OfflineNeuralTTS/Voices/...`), add that folder to *Project Settings > Packaging >
+  Additional Asset Directories to Cook*, or the packaged game reports that it can't load the voice.
 
 ---
 
