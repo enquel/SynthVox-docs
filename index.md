@@ -35,8 +35,8 @@ Support: mandasartur@gmail.com
 2. Open the demo: *Content Browser > Plugins > SynthVox - Offline Neural TTS Content > Demo > DemoLevel*, press Play,
    pick a voice, type a line in that voice's language and press **Speak**.
 3. In your own Blueprint:
-   - Add **Speak Text** (category *Offline Neural TTS*), set **Text** and pick a **Voice** asset
-     (`/OfflineNeuralTTS/Voices/…`, e.g. `af_heart`).
+   - Add **Speak Text** (category *SynthVox*), set **Text** and pick a **Voice** asset
+     (`/SynthVox/Voices/…`, e.g. `af_heart`).
    - From **On Audio Ready**, call **Spawn Sound 2D** (or *Spawn Sound at Location* / an Audio Component) with the
      **Sound Wave** pin.
 
@@ -53,7 +53,7 @@ A ready-made copy of this graph is `Demo/BP_SynthVoxExample`: drag it into a lev
 
 ## Voices and languages
 
-Every voice is a `UTTSVoiceAsset` Data Asset in `/OfflineNeuralTTS/Voices`. The voice decides the language: send it
+Every voice is a `UTTSVoiceAsset` Data Asset in `/SynthVox/Voices`. The voice decides the language: send it
 text in that language.
 
 | Language | Voices (asset name, F = female, M = male) |
@@ -139,7 +139,7 @@ effect), also reachable from the demo UI via **Process via MetaSound**.
 
 ## C++ API
 
-Add `"OfflineNeuralTTS"` to your module's dependencies, then use the game-instance subsystem:
+Add `"SynthVox"` to your module's dependencies, then use the game-instance subsystem:
 
 ```cpp
 #include "TTSSubsystem.h"
@@ -147,7 +147,7 @@ Add `"OfflineNeuralTTS"` to your module's dependencies, then use the game-instan
 #include "Kismet/GameplayStatics.h"
 
 UTTSSubsystem* TTS = GetGameInstance()->GetSubsystem<UTTSSubsystem>();
-UTTSVoiceAsset* Voice = LoadObject<UTTSVoiceAsset>(nullptr, TEXT("/OfflineNeuralTTS/Voices/am_michael.am_michael"));
+UTTSVoiceAsset* Voice = LoadObject<UTTSVoiceAsset>(nullptr, TEXT("/SynthVox/Voices/am_michael.am_michael"));
 if (TTS && TTS->IsReady() && Voice)
 {
     TTS->SpeakText(TEXT("Stay close. Something is watching us."), Voice, 1.0f,
@@ -162,7 +162,7 @@ Also available: `SpeakTextStreaming` (with per-sentence and completion callbacks
 
 ## Project Settings
 
-*Project Settings > Plugins > Offline Neural TTS*:
+*Project Settings > Plugins > SynthVox*:
 
 | Setting | Default | Notes |
 | --- | --- | --- |
@@ -198,7 +198,7 @@ Also available: `SpeakTextStreaming` (with per-sentence and completion callbacks
 - Packaged builds need nothing extra: models and voices are regular assets, cooked with your game. No network access
   happens at any point.
 - Voices you pick on a node or property are cooked automatically. If you load voices by path at runtime instead
-  (e.g. `LoadObject` on `/OfflineNeuralTTS/Voices/...`), add that folder to *Project Settings > Packaging >
+  (e.g. `LoadObject` on `/SynthVox/Voices/...`), add that folder to *Project Settings > Packaging >
   Additional Asset Directories to Cook*, or the packaged game reports that it can't load the voice.
 
 ---
@@ -207,13 +207,13 @@ Also available: `SpeakTextStreaming` (with per-sentence and completion callbacks
 
 | Symptom | Fix |
 | --- | --- |
-| No sound at all | Check that **On Audio Ready** fires (log category `LogOfflineNeuralTTS`). If it does, check Windows' Volume Mixer for "Unreal Editor" (per-app volume can be 0), and that the game window has focus (Unreal mutes unfocused windows by default: `[Audio] UnfocusedVolumeMultiplier`). |
+| No sound at all | Check that **On Audio Ready** fires (log category `LogSynthVox`). If it does, check Windows' Volume Mixer for "Unreal Editor" (per-app volume can be 0), and that the game window has focus (Unreal mutes unfocused windows by default: `[Audio] UnfocusedVolumeMultiplier`). |
 | "produced no phonemes" / synthesis failed | The text doesn't match the voice's language, or contains no letters. |
 | Hindi shows boxes in your UI | Use a font with Devanagari (see above). |
 | Speech plays twice as fast through MetaSound | Use **Stream Speech To Audio Bus** (it resamples); don't push raw PCM yourself. |
 | First call is silent | Wait for **Is Offline TTS Ready**. |
 
-Logs: `LogOfflineNeuralTTS` reports every synthesis with its duration and peak level.
+Logs: `LogSynthVox` reports every synthesis with its duration and peak level.
 
 ---
 
