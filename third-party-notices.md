@@ -6,7 +6,7 @@ title: Third-party notices
 [Back to the documentation](./)
 
 ```text
-OfflineNeuralTTS -- Third-Party Notices
+SynthVox -- Third-Party Notices
 ========================================
 
 This plugin performs 100% offline, on-device text-to-speech. It bundles or
@@ -45,7 +45,7 @@ Used as: Content/Data/LexiconUS.uasset, Content/Data/LexiconGB.uasset --
          merged, English word -> phoneme dictionaries. Only the dictionary
          *data* is used; no misaki source code is included in this plugin,
          and its optional espeak-ng-based fallback is deliberately NOT used
-         anywhere (see Source/OfflineNeuralTTS/Private/TTSPhonemizer.cpp for
+         anywhere (see Source/SynthVox/Private/TTSPhonemizer.cpp for
          this plugin's own GPL-free rule-based fallback for out-of-dictionary
          words).
 
@@ -96,7 +96,7 @@ Used as: Content/Data/LexiconZH.uasset -- a pre-computed Chinese word ->
          phoneme dictionary plus word-segmentation statistics, generated
          offline by Tools/model_prep/build_zh_lexicon.py. No Python code
          from any of these projects is included in this plugin; the C++
-         word segmenter in Source/OfflineNeuralTTS/Private/TTSChineseLexicon.cpp
+         word segmenter in Source/SynthVox/Private/TTSChineseLexicon.cpp
          is this plugin's own reimplementation of jieba's algorithm.
 
   a) jieba -- word list, word frequencies and HMM probability tables
@@ -138,7 +138,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 6. Greek phonemes
 -----------------
 Greek text is converted to phonemes by this plugin's own rules
-(Source/OfflineNeuralTTS/Private/TTSGreekG2P.cpp); no espeak-ng is included.
+(Source/SynthVox/Private/TTSGreekG2P.cpp); no espeak-ng is included.
 
 
 7. Noto Sans Devanagari (demo UI font)
