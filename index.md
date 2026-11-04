@@ -7,7 +7,7 @@ SynthVox turns text into natural speech on the player's machine. It needs no int
 or per-character fees. It ships with 48 voices in 6 languages and integrates with Blueprints, C++ and MetaSound.
 
 Version 1.0 · Unreal Engine 5.8 · Windows, Linux, macOS (desktop)
-Support: mandasartur@gmail.com
+Support (Discord): https://discord.gg/VNmNpzVAEB
 
 ---
 
@@ -228,4 +228,5 @@ SynthVox's code is covered by the Fab license. Bundled models and data use permi
 
 No espeak-ng or other GPL/LGPL code is included: every language's pronunciation is SynthVox's own code.
 
-Support: mandasartur@gmail.com
+
+Support (Discord): https://discord.gg/VNmNpzVAEB
